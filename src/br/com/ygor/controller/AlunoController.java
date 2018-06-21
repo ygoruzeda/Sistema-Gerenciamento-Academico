@@ -22,9 +22,18 @@ public class AlunoController implements Controller {
 
     @Override
     public void insert() {
-        Aluno aluno = new Aluno(view.getNome(), view.getMatricula(), view.getEndereco(), 
-                view.getTelefone(), view.getCurso());
+        Aluno aluno = new Aluno(view.getNome(), view.getEndereco(), view.getTelefone(), view.getCurso());
         dao.insert(aluno);        
+    }
+    
+    public void update(){
+        Aluno aluno = new Aluno(view.getNome(), view.getEndereco(), view.getTelefone(), view.getCurso());
+        aluno.setId(view.getId());
+        dao.update(aluno);
+    }
+    
+    public void delete(){
+        dao.delete(view.getId());
     }
     
     public List<Aluno> listAlunos(){

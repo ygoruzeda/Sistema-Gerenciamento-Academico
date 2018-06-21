@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS curso
 (
   id INT NOT NULL AUTO_INCREMENT,
   nome VARCHAR(250) NOT NULL,
-  id_escola INT UNIQUE,
+  id_escola INT,
   
   CONSTRAINT PK_id_curso PRIMARY KEY(id),
   CONSTRAINT FK_id_escola FOREIGN KEY (id_escola) REFERENCES escola(id)
@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS curso
 CREATE TABLE IF NOT EXISTS aluno
 (
   id INT NOT NULL AUTO_INCREMENT,
-  id_curso INT UNIQUE,
+  id_curso INT,
   nome VARCHAR(50) NOT NULL,
   matricula INT UNIQUE NOT NULL,
   endereco VARCHAR(250),
@@ -59,8 +59,8 @@ CREATE TABLE IF NOT EXISTS professor
 CREATE TABLE IF NOT EXISTS turma
 (
   id INT NOT NULL AUTO_INCREMENT,
-  id_disciplina INT UNIQUE,
-  id_professor INT UNIQUE,
+  id_disciplina INT,
+  id_professor INT,
   -- ACRESCENTAR LISTA DE ALUNOS
   CONSTRAINT PK_id_turma PRIMARY KEY(id),
   CONSTRAINT FK_id_disciplina FOREIGN KEY (id_disciplina) REFERENCES disciplina(id),

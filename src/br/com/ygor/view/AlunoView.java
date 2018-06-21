@@ -1,12 +1,11 @@
 package br.com.ygor.view;
 
 import br.com.ygor.controller.AlunoController;
-import br.com.ygor.dao.CursoDao;
 import br.com.ygor.model.Aluno;
 import br.com.ygor.model.Curso;
 import javax.swing.JOptionPane;
 
-public class AlunoView implements View{
+public class AlunoView implements View, ViewCRUD{
     private int id;
     private Curso curso;
     private String nome;
@@ -32,29 +31,19 @@ public class AlunoView implements View{
                 + "Informe a opção desejada:"));
         
             switch (op){
-                case 1:
-                    insertAluno();
-                    break;
+                
+                case 1: insert(); break;
 
-                case 2: 
+                case 2: update(); break;
                     
-                    break;
+                case 3: delete(); break;
                     
-                case 3: 
+                case 4: listAll(); break;
                     
-                    break;
+                case 5: break;
                     
-                case 4: 
-                    listAllAlunos();
-                    break;
-                    
-                case 5: 
-                    
-                    break;
-
-                default: 
-                    JOptionPane.showMessageDialog(null, "Opção inválida!");
-                    break;
+                default: JOptionPane.showMessageDialog(null, "Opção inválida!"); break;
+                
             }
         } while (op != 5);
 
@@ -65,9 +54,9 @@ public class AlunoView implements View{
         
     }
     
-    public void insertAluno(){
+    @Override
+    public void insert(){
         nome = JOptionPane.showInputDialog("Informe o nome:");
-        matricula = Integer.valueOf(JOptionPane.showInputDialog("Informe a matrícula:"));
         endereco = JOptionPane.showInputDialog("Informe o endereço:");
         telefone = JOptionPane.showInputDialog("Informe o telefone:");
         String cursos = "";
@@ -84,7 +73,50 @@ public class AlunoView implements View{
         controller.insert();                
     }
     
-    public void listAllAlunos(){
+    @Override
+    public void update(){
+        id = selectOne();
+        nome = JOptionPane.showInputDialog("Informe o nome:");
+        endereco = JOptionPane.showInputDialog("Informe o endereço:");
+        telefone = JOptionPane.showInputDialog("Informe o telefone:");
+        
+        String cursos = "";
+        
+        for(Curso c : controller.returnCursos()){  
+            cursos += c.getId() + " - " + c.getNome() + "\n";
+        }
+        
+        cursos += "Informe o código do curso que deseja inserir:";
+        
+        int idCurso = Integer.valueOf(JOptionPane.showInputDialog(cursos));
+        curso = controller.returnCurso(idCurso);
+        
+        controller.update();        
+    }
+    
+    @Override
+    public void delete(){
+        id = selectOne();
+        controller.delete();
+    }
+    
+    @Override
+    public int selectOne(){
+        String alunos = "";
+                
+        for(Aluno a : controller.listAlunos()){  
+            alunos += a.getId() + " - " + a.getNome() + "\n";
+        }
+        
+        alunos += "Digite o código do registro que deseja fazer a operação:";
+        
+        int id = Integer.valueOf(JOptionPane.showInputDialog(alunos));        
+        
+        return id;
+    }
+    
+    @Override
+    public void listAll(){
         String alunos = "";
         
         for(Aluno a : controller.listAlunos()){  
@@ -94,6 +126,7 @@ public class AlunoView implements View{
         JOptionPane.showMessageDialog(null, alunos);
     }
     
+    // Getters and Setters
     public int getId() {
         return id;
     }

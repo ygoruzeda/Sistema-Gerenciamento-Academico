@@ -6,9 +6,8 @@ public class Aluno extends Pessoa{
         
     public Aluno(){}
     
-    public Aluno(String nome, int matricula, String endereco, String telefone, Curso curso){
+    public Aluno(String nome, String endereco, String telefone, Curso curso){
       super.setNome(nome);
-      super.setMatricula(matricula);
       super.setEndereco(endereco);
       super.setTelefone(telefone);
       this.curso = curso;
