@@ -3,7 +3,7 @@ package br.com.ygor.dao;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProfessorDao extends DaoConnection implements Dao{
+public class ProfessorDao extends DaoConnection implements Dao, HasMatricula{
 
     @Override
     public void insert(Object object) {
@@ -26,8 +26,8 @@ public class ProfessorDao extends DaoConnection implements Dao{
     }
 
     @Override
-    public void listForId(int id) {
-        
+    public int returnLastMatricula() {
+        return 0;
     }
-    
+
 }

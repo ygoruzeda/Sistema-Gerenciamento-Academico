@@ -97,11 +97,6 @@ public class AlunoDao extends DaoConnection implements Dao, HasMatricula{
     }
     
     @Override
-    public void listForId(int id) {
-        
-    }
-    
-    @Override
     public int returnLastMatricula(){
                 
         try{

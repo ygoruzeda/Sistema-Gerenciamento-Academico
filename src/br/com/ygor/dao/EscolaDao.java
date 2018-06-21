@@ -12,28 +12,79 @@ public class EscolaDao extends DaoConnection implements Dao {
 
     @Override
     public void insert(Object object) {
+        Escola escola = (Escola) object;
         
+        String sql = "INSERT INTO escola (nome) VALUES (?)";
+        
+        try {
+            PreparedStatement stmt = getConnection().prepareStatement(sql);
+                          
+            stmt.setString(1, escola.getNome());
+                                   
+            stmt.execute();
+            stmt.close();
+        } catch (SQLException e){
+            throw new RuntimeException(e);
+        }        
     }
     @Override
     public void update(Object object) {
-     
+        Escola escola = (Escola) object;
+        
+        String sql = "UPDATE escola set nome = ? WHERE id = ?";
+        
+        try {
+            PreparedStatement stmt = getConnection().prepareStatement(sql);
+            
+            stmt.setString(1, escola.getNome());            
+            stmt.setString(2, String.valueOf(escola.getId()));            
+                        
+            stmt.execute();
+            stmt.close();
+        } catch (SQLException e){
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public void delete(int id) {
-  
+        String sql = "DELETE FROM escola WHERE id = ?";
+        
+        try {
+            PreparedStatement stmt = getConnection().prepareStatement(sql);
+            
+            stmt.setString(1, String.valueOf(id));            
+            
+            stmt.execute();
+            stmt.close();
+        } catch (SQLException e){
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
-    public List listAll() {
-        return new ArrayList<>();
+    public List<Escola> listAll() {
+       try {
+            ArrayList<Escola> escolas = new ArrayList<Escola>();
+            PreparedStatement stmt = getConnection().prepareStatement("SELECT * FROM escola");
+            ResultSet rs = stmt.executeQuery();
+            
+            while (rs.next()){
+                Escola escola = new Escola();
+                escola.setId(Integer.valueOf(rs.getString("id")));
+                escola.setNome(rs.getString("nome"));
+                
+                escolas.add(escola);
+            }
+            rs.close();
+            stmt.close();
+            
+            return escolas;
+        } catch(SQLException e){
+            throw new RuntimeException(e);
+        }
     }
 
-    @Override
-    public void listForId(int id) {
-  
-    }
-    
     public Escola returnEscola(int id){
         try {
             PreparedStatement stmt = getConnection().prepareStatement("SELECT * FROM escola WHERE id = ?");

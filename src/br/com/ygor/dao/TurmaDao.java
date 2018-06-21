@@ -25,8 +25,4 @@ public class TurmaDao extends DaoConnection implements Dao{
         return new ArrayList<>();
     }
 
-    @Override
-    public void listForId(int id) {
-        
-    }
 }

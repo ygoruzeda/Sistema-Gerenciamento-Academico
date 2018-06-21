@@ -12,17 +12,58 @@ public class CursoDao extends DaoConnection implements Dao {
     
     @Override
     public void insert(Object object) {
+        Curso curso = (Curso) object;
         
+        String sql = "INSERT INTO curso (nome, id_escola) VALUES (?, ?)";
+        
+        try {
+            PreparedStatement stmt = getConnection().prepareStatement(sql);
+                          
+            stmt.setString(1, curso.getNome());
+            stmt.setString(2, String.valueOf(curso.getEscola().getId()));
+                       
+            stmt.execute();
+            stmt.close();
+        } catch (SQLException e){
+            throw new RuntimeException(e);
+        }        
     }
 
     @Override
     public void update(Object object) {
+        Curso curso = (Curso) object;
         
+        String sql = "UPDATE curso set nome = ?, escola_id = ? WHERE id = ?";
+        
+        try {
+            PreparedStatement stmt = getConnection().prepareStatement(sql);
+            
+            stmt.setString(1, curso.getNome());            
+            stmt.setString(2, String.valueOf(curso.getEscola().getId()));            
+            stmt.setString(3, String.valueOf(curso.getId()));
+            
+            stmt.execute();
+            stmt.close();
+        } catch (SQLException e){
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public void delete(int id) {
+          
+        String sql = "DELETE FROM curso WHERE id = ?";
         
+        try {
+            PreparedStatement stmt = getConnection().prepareStatement(sql);
+            
+            stmt.setString(1, String.valueOf(id));            
+            
+            stmt.execute();
+            stmt.close();
+        } catch (SQLException e){
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -47,12 +88,7 @@ public class CursoDao extends DaoConnection implements Dao {
             throw new RuntimeException(e);
         }
     }
-
-    @Override
-    public void listForId(int id) {
-        
-    }
-    
+  
     public Curso returnCurso(int id){
         try {
             PreparedStatement stmt = getConnection().prepareStatement("SELECT * FROM curso WHERE id = ?");

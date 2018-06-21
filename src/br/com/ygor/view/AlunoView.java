@@ -104,7 +104,7 @@ public class AlunoView implements View, ViewCRUD{
     public int selectOne(){
         String alunos = "";
                 
-        for(Aluno a : controller.listAlunos()){  
+        for(Aluno a : controller.listAll()){  
             alunos += a.getId() + " - " + a.getNome() + "\n";
         }
         
@@ -119,7 +119,7 @@ public class AlunoView implements View, ViewCRUD{
     public void listAll(){
         String alunos = "";
         
-        for(Aluno a : controller.listAlunos()){  
+        for(Aluno a : controller.listAll()){  
             alunos += a.getId() + " - " + a.getNome() + "\n";
         }
         

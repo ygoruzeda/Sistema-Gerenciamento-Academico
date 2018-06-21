@@ -12,5 +12,4 @@ public interface Dao {
     
     public List listAll();
     
-    public void listForId(int id);
 }

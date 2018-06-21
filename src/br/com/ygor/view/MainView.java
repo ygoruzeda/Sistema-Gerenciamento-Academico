@@ -1,6 +1,8 @@
 package br.com.ygor.view;
 
 import br.com.ygor.controller.AlunoController;
+import br.com.ygor.controller.CursoController;
+import br.com.ygor.controller.EscolaController;
 import javax.swing.JOptionPane;
 
 public class MainView implements View{
@@ -25,13 +27,32 @@ public class MainView implements View{
                 + "Informe a opção desejada:"));
         
             switch (op){
-                case 1:
-                    JOptionPane.showMessageDialog(null, "Funcionários!");
+                case 1: // Professor - Administrativo
+                    
                     break;
 
-                case 2: 
+                case 2: // Aluno
                     AlunoController alunoController = new AlunoController();
                     alunoController.start();
+                    break;
+                    
+                case 3: // Escola
+                    EscolaController escolaController = new EscolaController();
+                    escolaController.start();
+                    break;
+                
+                case 4: // Curso
+                    CursoController cursoController = new CursoController();
+                    cursoController.start();
+                    break;
+                    
+                case 5: //Disciplinas
+                    break;
+                    
+                case 6: //Turmas
+                    break;
+                
+                case 7: //Setor
                     break;
                     
                 case 8:
