@@ -5,7 +5,6 @@ import br.com.ygor.model.Curso;
 import br.com.ygor.model.Escola;
 import javax.swing.JOptionPane;
 
-
 public class CursoView implements View, ViewCRUD{
     private int id;
     private String nome;
@@ -119,6 +118,10 @@ public class CursoView implements View, ViewCRUD{
         }
         
         JOptionPane.showMessageDialog(null, cursos);
+    }
+    
+    public void msgExclusionNotAllowed(){
+        JOptionPane.showMessageDialog(null, "Esse curso está associado a um aluno. Não é possível deletá-lo.");
     }
     
     // Getters and Setters

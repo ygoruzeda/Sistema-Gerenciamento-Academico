@@ -51,7 +51,7 @@ public class CursoDao extends DaoConnection implements Dao {
 
     @Override
     public void delete(int id) {
-          
+        
         String sql = "DELETE FROM curso WHERE id = ?";
         
         try {
@@ -108,6 +108,28 @@ public class CursoDao extends DaoConnection implements Dao {
         } catch(SQLException  e){
             throw new RuntimeException(e);
         }
+    }
+    
+    public boolean hasRelationshipWithAnotherTable(int id){
+        try{
+            PreparedStatement stmt = getConnection().prepareStatement("SELECT c.id FROM curso as c "
+                    + "INNER JOIN aluno AS a ON a.id_curso = c.id "
+                    + "WHERE c.id = ?");
+            stmt.setString(1, String.valueOf(id));
+            ResultSet rs = stmt.executeQuery();
+                
+            boolean retorno = false;
+            if (rs.next()){
+                retorno = rs.getString(1) == null ? false : true;                                                     
+            } 
+            
+            rs.close();
+            stmt.close();     
+            
+            return retorno;
+        } catch (SQLException e){
+            throw new RuntimeException(e);
+        }       
     }
     
 }

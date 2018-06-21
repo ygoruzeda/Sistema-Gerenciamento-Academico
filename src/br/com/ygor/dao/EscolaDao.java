@@ -106,4 +106,26 @@ public class EscolaDao extends DaoConnection implements Dao {
         }
     }
     
+    public boolean hasRelationshipWithAnotherTable(int id){
+        try{
+            PreparedStatement stmt = getConnection().prepareStatement("SELECT e.id FROM escola as e "
+                    + "INNER JOIN curso AS c ON e.id = c.id_escola "
+                    + "WHERE e.id = ?");
+            stmt.setString(1, String.valueOf(id));
+            ResultSet rs = stmt.executeQuery();
+                
+            boolean retorno = false;
+            if (rs.next()){
+                retorno = rs.getString(1) == null ? false : true;                                                     
+            } 
+            
+            rs.close();
+            stmt.close();     
+            
+            return retorno;
+        } catch (SQLException e){
+            throw new RuntimeException(e);
+        }       
+    }
+    
 }

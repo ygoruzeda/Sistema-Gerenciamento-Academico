@@ -32,7 +32,11 @@ public class EscolaController implements Controller{
     
     @Override
     public void delete(){
-        dao.delete(view.getId());
+        if (!dao.hasRelationshipWithAnotherTable(view.getId()))
+           dao.delete(view.getId());
+        else
+            view.msgExclusionNotAllowed();
+        
     }
     
     @Override

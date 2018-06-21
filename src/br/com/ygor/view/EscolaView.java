@@ -94,6 +94,10 @@ public class EscolaView implements View, ViewCRUD {
         JOptionPane.showMessageDialog(null, escolas);
     }
     
+    public void msgExclusionNotAllowed(){
+        JOptionPane.showMessageDialog(null, "Essa escola está associada a um curso. Não é possível deletá-la.");
+    }
+    
     // Getters and Setters
     public int getId() {
         return id;
